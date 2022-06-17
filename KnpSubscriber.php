@@ -20,14 +20,15 @@ class KnpSubscriber implements EventSubscriberInterface
         if (!$request->hasPreviousSession()) {
             return;
         }
-        foreach ($this->knparray as $knp) {
-            // try to see if the locale has been set as a _locale routing 
-            $field = 'knp_' . $request->attributes->get('_route') . '_' . $knp;
-            if ($val = $request->query->get($knp)) {
-                $request->getSession()->set($field, $val);
-            } else {
-                if ($exval = $request->getSession()->get($field, false)) {
-                    $request->query->add([$knp => $exval]);
+        if ($request->isMethod('GET')) {
+            foreach ($this->knparray as $knp) {
+                $field = 'knp_' . $request->attributes->get('_route') . '_' . $knp;
+                if ($val = $request->query->get($knp)) {
+                    $request->getSession()->set($field, $val);
+                } else {
+                    if ($exval = $request->getSession()->get($field, false)) {
+                        $request->query->add([$knp => $exval]);
+                    }
                 }
             }
         }
