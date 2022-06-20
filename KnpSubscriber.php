@@ -16,6 +16,7 @@ class KnpSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event)
     {
+
         $request = $event->getRequest();
         if (!$request->hasPreviousSession()) {
             return;
@@ -23,7 +24,7 @@ class KnpSubscriber implements EventSubscriberInterface
         if ($request->isMethod('GET')) {
             foreach ($this->knparray as $knp) {
                 $field = 'knp_' . $request->attributes->get('_route') . '_' . $knp;
-                if ($val = $request->query->get($knp)) {
+                if ($val = $request->query->get($knp, '')) {
                     $request->getSession()->set($field, $val);
                 } else {
                     if ($exval = $request->getSession()->get($field, false)) {
