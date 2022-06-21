@@ -18,6 +18,7 @@ class KnpSubscriber implements EventSubscriberInterface
     {
 
         $request = $event->getRequest();
+        //$request->getSession()->clear();
         if (!$request->hasPreviousSession()) {
             return;
         }
@@ -28,7 +29,12 @@ class KnpSubscriber implements EventSubscriberInterface
                     $request->getSession()->set($field, $val);
                 } else {
                     if ($exval = $request->getSession()->get($field, false)) {
-                        $request->query->add([$knp => $exval]);
+                        if ($knp == 'filterValue') {
+                            if ($val != '')
+                                $request->query->add([$knp => $exval]);
+                        } else {
+                            $request->query->add([$knp => $exval]);
+                        }
                     }
                 }
             }
