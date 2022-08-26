@@ -22,16 +22,18 @@ class KnpSubscriber implements EventSubscriberInterface
         if (!$request->hasPreviousSession()) {
             return;
         }
+
         if ($request->isMethod('GET')) {
             foreach ($this->knparray as $knp) {
                 $field = 'knp_' . $request->attributes->get('_route') . '_' . $knp;
-                if ($val = $request->query->get($knp, '')) {
+                if ($val = $request->query->get($knp, false)) {
                     $request->getSession()->set($field, $val);
                 } else {
                     if ($exval = $request->getSession()->get($field, false)) {
                         if ($knp == 'filterValue') {
-                            if ($val != '')
+                            if ($exval != '') {
                                 $request->query->add([$knp => $exval]);
+                            }
                         } else {
                             $request->query->add([$knp => $exval]);
                         }
