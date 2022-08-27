@@ -37,7 +37,6 @@ class KnpSubscriber implements EventSubscriberInterface
                 }
             }
         }
-        dump($request->getSession()->all());
     }
 
     public static function getSubscribedEvents()
