@@ -15,7 +15,7 @@ class KnpSubscriber implements EventSubscriberInterface
     {
         //récupération des request
         $this->request = $event->getRequest();
-        //$request->getSession()->clear();
+        //$this->request->getSession()->clear();
         if (!$this->request->hasPreviousSession()) {
             return;
         }
