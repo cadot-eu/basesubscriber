@@ -45,6 +45,8 @@ class ChatSubscriber implements EventSubscriberInterface
     {
         $this->twig->addGlobal('ChatMessages', $this->messages);
         $this->twig->addGlobal('ChatToken', $this->token);
+        $this->twig->addGlobal('template_box_reponse', file_get_contents('/app/templates/chat_template_boxreponse.html.twig'));
+        $this->twig->addGlobal('template_box_question', file_get_contents('/app/templates/chat_template_boxquestion.html.twig'));
     }
 
     public static function getSubscribedEvents()
