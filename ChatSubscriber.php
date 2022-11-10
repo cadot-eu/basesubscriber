@@ -33,10 +33,12 @@ class ChatSubscriber implements EventSubscriberInterface
     {
         $this->twig = $twig;
         //creation d'un token unique pour l'utilisateur
-        //$session = new Session(new NativeSessionStorage(), new AttributeBag());
         $session = $requestStack->getSession();
-        $this->token = hash('ripemd160', IpHelper::getUserIP());
-        $session->set('chattoken', $this->token);
+        if (!$session->get('chattoken', null)) {
+            $this->token = hash('ripemd160', uniqid());
+            //si on a pas de token dans la session
+            $session->set('chattoken', $this->token);
+        }
         //on récupère les anciens messages de cet utilisateurs
         $this->messages = $chatRepository->findBy(['user' => $this->token], ['id' => 'DESC']);
     }
