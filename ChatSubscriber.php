@@ -53,7 +53,7 @@ class ChatSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('template_box_question', file_get_contents('/app/templates/chat_template_boxquestion.html.twig'));
     }
 
-    public static function getSubscribedEvents()
+    static public function getSubscribedEvents()
     {
         return [
             KernelEvents::CONTROLLER => 'injectGlobalVariables',

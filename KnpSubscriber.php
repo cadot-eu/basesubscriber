@@ -51,7 +51,7 @@ class KnpSubscriber implements EventSubscriberInterface
     {
         return 'knp_' . $this->request->attributes->get('_route') . '_' . $field;
     }
-    public static function getSubscribedEvents()
+    static public function getSubscribedEvents()
     {
         return [
             // must be registered before (i.e. with a higher priority than) the default Locale listener

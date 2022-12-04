@@ -27,7 +27,7 @@ class TwigGlobalSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('TBparametres', ToolsHelper::params($this->em));
     }
 
-    public static function getSubscribedEvents()
+    static public function getSubscribedEvents()
     {
         return [
             KernelEvents::CONTROLLER => 'injectGlobalVariables',
