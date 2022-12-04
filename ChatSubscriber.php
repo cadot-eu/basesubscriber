@@ -35,7 +35,7 @@ class ChatSubscriber implements EventSubscriberInterface
         //creation d'un token unique pour l'utilisateur
         $session = $requestStack->getSession();
         if (!$session->get('chattoken')) {
-            $this->token = hash('ripemd160', uniqid());
+            $this->token = hash('argon2', uniqid());
             //si on a pas de token dans la session
             $session->set('chattoken', $this->token);
         } else {
