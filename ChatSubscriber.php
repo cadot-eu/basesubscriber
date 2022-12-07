@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber\base;
 
-use App\Repository\ChatRepository;
+use App\Repository\base\ChatRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -43,11 +43,11 @@ class ChatSubscriber implements EventSubscriberInterface
 		$this->twig->addGlobal('ChatToken', $this->token);
 		$this->twig->addGlobal(
 			'template_box_reponse',
-			file_get_contents('/app/templates/chat_template_boxreponse.html.twig')
+			file_get_contents('/app/templates/base/chat_template_boxreponse.html.twig')
 		);
 		$this->twig->addGlobal(
 			'template_box_question',
-			file_get_contents('/app/templates/chat_template_boxquestion.html.twig')
+			file_get_contents('/app/templates/base/chat_template_boxquestion.html.twig')
 		);
 	}
 
