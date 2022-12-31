@@ -32,9 +32,9 @@ class FileExceptionSubscriber implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $event): void
     {
         if ($event->getThrowable() instanceof NotFoundHttpException) {
-            if (FileUploader::fileExtension($event->getRequest()->getRequestUri()) != null) {
+            if (($ext = FileUploader::fileExtension($event->getRequest()->getRequestUri())) != null) {
                 $event->allowCustomResponseCode();
-                $response = new BinaryFileResponse('/app/public/build/logo.png', 200, [], true, 'inline');
+                $response = new BinaryFileResponse('/app/public/build/404.' . $ext, 200, [], true, 'inline');
                 $event->setResponse($response);
             }
         }
