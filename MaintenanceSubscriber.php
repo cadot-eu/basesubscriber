@@ -34,7 +34,7 @@ class MaintenanceSubscriber implements EventSubscriberInterface
                     if (file_exists('/app/templates/maintenance.html.twig'))
                         $response = $this->twig->render('maintenance.html.twig');
                     else $response = $this->getpage();
-                    $event->setResponse(new Response($response,));
+                    $event->setResponse($response,);
                 }
     }
 
