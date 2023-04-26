@@ -28,14 +28,18 @@ class MaintenanceSubscriber implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event): void
     {
         //on autorise les accès à certaines urls et si un user est connecté
-        if (!$this->testUser())
-            if (!$this->testUrls($event->getRequest()->getRequestUri()))
+        if (!$this->testUser()) {
+            if (!$this->testUrls($event->getRequest()->getRequestUri())) {
                 if (isset($_ENV['maintenance']) && $_ENV['maintenance'] == 'true') {
-                    if (file_exists('/app/templates/maintenance.html.twig'))
+                    if (file_exists('/app/templates/maintenance.html.twig')) {
                         $response = $this->twig->render('maintenance.html.twig');
-                    else $response = $this->getpage();
-                    $event->setResponse($response,);
+                    } else {
+                        $response = $this->getpage();
+                    }
+                    $event->setResponse(new Response($response, 503));
                 }
+            }
+        }
     }
 
     public static function getSubscribedEvents(): array
@@ -47,15 +51,18 @@ class MaintenanceSubscriber implements EventSubscriberInterface
 
     private function testUser()
     {
-        if (!$this->token->getToken()) return false;
+        if (!$this->token->getToken()) {
+            return false;
+        }
         return (strpos(implode(',', $this->token->getToken()->getUser()->getRoles()), 'ADMIN') !== false);
     }
     private function testUrls($uri)
     {
 
         foreach ($this->urls as $url) {
-            if (substr($uri, 0, strlen("/$url")) == "/$url")
+            if (substr($uri, 0, strlen("/$url")) == "/$url") {
                 return true;
+            }
         }
         return false;
     }
