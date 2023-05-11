@@ -13,6 +13,7 @@ use App\Service\base\ToolsHelper;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use App\Entity\Parametres;
+use Psr\Log\LoggerInterface;
 
 class TwigGlobalSubscriber implements EventSubscriberInterface
 {
@@ -24,12 +25,15 @@ class TwigGlobalSubscriber implements EventSubscriberInterface
 
     protected $filtermanager;
 
-    public function __construct(Environment $twig, EntityManagerInterface $em, CacheManager $cachemanager, FilterManager $filtermanager)
+    protected $logger;
+
+    public function __construct(Environment $twig, EntityManagerInterface $em, CacheManager $cachemanager, FilterManager $filtermanager, LoggerInterface $logger)
     {
         $this->twig = $twig;
         $this->em = $em;
         $this->cachemanager = $cachemanager;
         $this->filtermanager = $filtermanager;
+        $this->logger = $logger;
     }
 
     public function injectGlobalVariables()
@@ -38,7 +42,7 @@ class TwigGlobalSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('categories', $this->em->getRepository('App\Entity\Categorie')->findBy(array('deletedAt' => null), array('nom' => 'ASC')));
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return [
             KernelEvents::CONTROLLER => 'injectGlobalVariables',
