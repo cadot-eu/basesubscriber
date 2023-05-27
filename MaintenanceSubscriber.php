@@ -17,7 +17,7 @@ class MaintenanceSubscriber implements EventSubscriberInterface
     protected $params;
 
     protected $twig, $token;
-    protected $urls = ['admin', 'connexion'];
+    protected $urls = ['admin', 'connexion','login'];
 
     public function __construct(Environment $twig, TokenStorageInterface $tokenStorageInterface)
     {
