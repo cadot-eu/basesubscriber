@@ -30,7 +30,7 @@ class MaintenanceSubscriber implements EventSubscriberInterface
         //on autorise les accès à certaines urls et si un user est connecté
         if (!$this->testUser()) {
             if (!$this->testUrls($event->getRequest()->getRequestUri())) {
-                if (isset($_ENV['maintenance']) && $_ENV['maintenance'] == 'true') {
+                if (isset($_ENV['maintenance']) && $_ENV['maintenance'] == 'true' || isset($_ENV['MAINTENANCE']) && $_ENV['MAINTENANCE'] == '1') {
                     if (file_exists('/app/templates/maintenance.html.twig')) {
                         $response = $this->twig->render('maintenance.html.twig');
                     } else {
