@@ -27,6 +27,10 @@ class MaintenanceSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
+       //si c'est un fichier qui est demander on ne fait rien
+        if (strpos($event->getRequest()->getRequestUri(), '.') !== false) {
+            return;
+        }
         //on autorise les accès à certaines urls et si un user est connecté
         if (!$this->testUser()) {
             if (!$this->testUrls($event->getRequest()->getRequestUri())) {
