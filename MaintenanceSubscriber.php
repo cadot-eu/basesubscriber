@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber\base;
 
-use Flasher\Symfony\Template\TwigTemplateEngine;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
