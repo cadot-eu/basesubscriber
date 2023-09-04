@@ -7,8 +7,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Sentry\Severity;
-use Sentry\EventHint;
 
 class FailedMessageSubscriber implements EventSubscriberInterface
 {
