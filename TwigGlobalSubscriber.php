@@ -59,8 +59,7 @@ class TwigGlobalSubscriber implements EventSubscriberInterface
     {
         $tab = [];
         foreach ($this->em->getRepository(Parametres::class)->findAll() as $parametre) {
-            $tab[$parametre->getSlug()] =  //on ajoute les srcset aux images
-                ArticleHelper::imgToSrcset($parametre->getValeur(), $this->cachemanager, $this->filtermanager);
+            $tab[$parametre->getSlug()] = $parametre->getValeur();
         }
 
         return $tab;
