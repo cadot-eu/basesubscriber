@@ -32,7 +32,7 @@ class FailedMessageSubscriber implements EventSubscriberInterface
         // Log the failed message
         $this->logger->error('Message failed: ' . get_class($failedMessage));
         $email = (new Email())
-            ->from('siteimmo@cadot.eu')
+            ->from($_ENV['MAILER_FROM'])
             ->to('michael@cadot.eu')
             ->subject('Erreur lors du traitement')
             ->html('Message failed: ' . get_class($failedMessage) . '<br>' . $event->getThrowable()->getTraceAsString());
