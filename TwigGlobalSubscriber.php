@@ -39,7 +39,6 @@ class TwigGlobalSubscriber implements EventSubscriberInterface
     public function injectGlobalVariables()
     {
         $this->twig->addGlobal('TBparametres', $this->params($this->em));
-        $this->twig->addGlobal('categories', $this->em->getRepository('App\Entity\Categorie')->findBy(array('deletedAt' => null), array('nom' => 'ASC')));
     }
 
     public static function getSubscribedEvents()
